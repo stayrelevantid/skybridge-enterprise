@@ -73,14 +73,14 @@ Walaupun proyek ini dirancang untuk dijalankan melalui GitHub Actions, Anda dapa
 4. **Testing Konektivitas & Debugging (SSM)**:
    - Akses load balancer DNS link di browser Anda.
    - Untuk masuk ke terminal EC2: Buka AWS Console -> **EC2** -> Pilih instance -> Klik **Connect** -> Pilih **Session Manager**.
-4. **Update & Redeploy Aplikasi (Opsional)**:
+5. **Update & Redeploy Aplikasi (Opsional)**:
    - Apabila ada perubahan skrip pada *Launch Template* (misal: mengganti versi Nginx), cukup jalankan kembali `terraform apply`.
    - Terraform akan memicu penugasan **ASG Instance Refresh** untuk menggantikan mesin lama dengan berhati-hati tanpa *downtime*.
-5. **Membersihkan Infrastruktur (Self-Destruct)**:
+6. **Membersihkan Infrastruktur (Fase 6: Clean Self-Destruct)**:
    ```bash
    terraform destroy -auto-approve
    ```
-   *Catatan: Sangat disarankan untuk segera menghapus semua resource AWS setelah selesai melakukan eksplorasi untuk menghindari tagihan.*
+   > ⚠️ **Sangat Penting:** Segera eksekusi perintah di atas setelah selesai bereksperimen. Membiarkan NAT Gateway dan ALB menyala 24 jam akan menguras tagihan AWS Anda secara signifikan. Pastikan Console AWS Anda sudah bersih dari *resource* tersebut.
 
 ## 🏷️ Standardisasi Audit
 
