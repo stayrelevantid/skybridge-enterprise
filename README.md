@@ -13,6 +13,7 @@ Proyek ini membangun arsitektur standar *enterprise* yang terdiri dari:
 - **Compute & Scaling**: 
   - Application Load Balancer (ALB) sebagai satu-satunya pintu masuk traffic publik.
   - Auto Scaling Group (ASG) dengan Health Check yang terintegrasi ke ALB.
+  - Memperbolehkan penghapusan ALB secara otomatis di lingkungan lab melalui parameter `enable_deletion_protection = false`.
   - Mendukung *Zero-Downtime Deployment* melalui fitur ASG *Instance Refresh*.
   - Instance EC2 privat tertanam dengan IAM Role SSM (Session Manager), mengizinkan **koneksi terminal aman melalui browser tanpa memerlukan SSH Key atau pembukaan Port 22**.
 - **Security**: 

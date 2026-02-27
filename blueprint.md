@@ -10,7 +10,8 @@ Ini adalah finalisasi menyeluruh untuk Project SkyBridge. Kita akan menggabungka
   - **Private App Tier**: 2 Subnet (ASG + EC2 Nginx).
   - **Private Data Tier**: 2 Subnet (Isolasi Database).
 - **Traffic Management**: Application Load Balancer (ALB) sebagai pintu utama.
-- **Compute & Scaling**: Auto Scaling Group (ASG) dengan Health Check terintegrasi ke ALB.
+- **Compute & Scaling**: Auto Scaling Group (ASG) dengan Health Check terintegrasi ke ALB. 
+- **Deletion Protection**: ALB dikonfigurasi dengan `enable_deletion_protection = false` untuk memudahkan siklus hidup lab (pembersihan resource).
 - **Audit Layer**: Resource tagging otomatis di seluruh komponen.
 
 ### Arsitektur Workflow (GitHub Actions)

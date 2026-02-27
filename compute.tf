@@ -22,6 +22,9 @@ module "alb" {
   # Menempelkan Security Group khusus ALB
   security_groups = [module.alb_sg.security_group_id]
 
+  # Matikan Deletion Protection agar mudah di-destroy (Lingkungan Lab)
+  enable_deletion_protection = false
+
   # Listerner HTTP (Menerima trafik dari publik di port 80)
   listeners = {
     http = {
