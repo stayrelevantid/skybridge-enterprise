@@ -10,9 +10,10 @@ Proyek ini membangun arsitektur standar *enterprise* yang terdiri dari:
   - **Public Tier**: Menampung Application Load Balancer (ALB) dan NAT Gateway.
   - **Private App Tier**: Menampung Auto Scaling Group (ASG) dan instance EC2 (menjalankan web server Nginx).
   - **Private Data Tier**: Disiapkan untuk isolasi Database di masa mendatang.
-- **Traffic Management & Scaling**: 
+- **Compute & Scaling**: 
   - Application Load Balancer (ALB) sebagai satu-satunya pintu masuk traffic publik.
   - Auto Scaling Group (ASG) dengan Health Check yang terintegrasi ke ALB.
+  - Mendukung *Zero-Downtime Deployment* melalui fitur ASG *Instance Refresh*.
 - **Security**: 
   - Security Group untuk secara ketat membatasi akses (hanya mengizinkan trafik HTTP/HTTPS ke ALB, dan trafik dari ALB ke EC2).
 - **Backend & State Management**: 
@@ -66,7 +67,10 @@ Walaupun proyek ini dirancang untuk dijalankan melalui GitHub Actions, Anda dapa
    ```bash
    terraform apply
    ```
-4. **Membersihkan Infrastruktur (Self-Destruct)**:
+4. **Update & Redeploy Aplikasi (Opsional)**:
+   - Apabila ada perubahan skrip pada *Launch Template* (misal: mengganti versi Nginx), cukup jalankan kembali `terraform apply`.
+   - Terraform akan memicu penugasan **ASG Instance Refresh** untuk menggantikan mesin lama dengan berhati-hati tanpa *downtime*.
+5. **Membersihkan Infrastruktur (Self-Destruct)**:
    ```bash
    terraform destroy -auto-approve
    ```

@@ -16,6 +16,7 @@ Ini adalah finalisasi menyeluruh untuk Project SkyBridge. Kita akan menggabungka
 ### Arsitektur Workflow (GitHub Actions)
 - **CI (Audit)**: Trigger saat *Pull Request*. Menjalankan `terraform plan` dan posting hasil ke komentar PR.
 - **CD (Deploy)**: Trigger saat *Merge* ke `main`. Menjalankan `terraform apply`.
+- **Redeploy (Refresh)**: Pembaruan aplikasi (contoh: update versi Nginx) dilakukan dengan mengubah *Launch Template*, yang akan memicu proses *ASG Instance Refresh* secara otomatis.
 - **Manual (Destroy)**: Eksekusi `terraform destroy` secara lokal dari komputer untuk menghapus seluruh *resource* termasuk S3 Bucket State.
 
 ## 2. Struktur Kode & Labeling Audit
@@ -90,7 +91,14 @@ skybridge-enterprise/
 - **Tag Audit**: Cek AWS Tag Editor untuk memastikan semua resource memiliki tag `Owner: stayrelevantid`.
 - **High Availability Test**: Coba terminate satu instance di console dan lihat ASG membuat penggantinya secara otomatis.
 
-### Fase 5: Clean Self-Destruct (Manual)
+### Fase 5: App Redeployment & Instance Refresh (Zero-Downtime)
+Proses ini mensimulasikan bagaimana merilis versi aplikasi terbaru tanpa *downtime*.
+1. **Update User Data / AMI**: Buka file konfigurasi komputasi (misal `compute.tf`) dan ubah deskripsi/versi pada skrip instalasi Nginx di *Launch Template*.
+2. **Push to GitHub**: *Commit* dan *Push* perubahan tersebut, lalu buat Pull Request ke branch `main`.
+3. **Automated Refresh**: Setelah di-*merge*, CI/CD akan menjalankan `terraform apply`. Terraform akan mendeteksi perubahan *Launch Template* dan menginstruksikan ASG untuk melakukan *Instance Refresh*.
+4. **Verifikasi Rolling Update**: ASG secara perlahan akan mematikan *instance* lama dan menggantinya dengan *instance* baru tanpa memutuskan keseluruhan trafik layanan.
+
+### Fase 6: Clean Self-Destruct (Manual)
 - **Local Local Destroy**: Saat lab selesai, buka terminal di folder Terraform kamu.
 - **Eksekusi**: Jalankan perintah `terraform destroy --auto-approve` secara lokal.
 - **Verification**: Pastikan semua *resource* termasuk VPC, EC2, ALB, serta S3 Bucket dan DynamoDB yang menyimpan state telah terhapus sempurna dari AWS Console.
