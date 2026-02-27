@@ -75,7 +75,7 @@ locals {
     # Custom HTML content to visually verify Load Balancing
     echo "<h1>Welcome to SkyBridge Enterprise!</h1>" | sudo tee /usr/share/nginx/html/index.html
     echo "<p>Served by EC2 Instance: $(hostname -f)</p>" | sudo tee -a /usr/share/nginx/html/index.html
-    echo "<p>Application Version: v1.0</p>" | sudo tee -a /usr/share/nginx/html/index.html
+    echo "<p>Application Version: v2.0 🔥</p>" | sudo tee -a /usr/share/nginx/html/index.html
   EOT
 }
 
