@@ -14,6 +14,7 @@ Proyek ini membangun arsitektur standar *enterprise* yang terdiri dari:
   - Application Load Balancer (ALB) sebagai satu-satunya pintu masuk traffic publik.
   - Auto Scaling Group (ASG) dengan Health Check yang terintegrasi ke ALB.
   - Mendukung *Zero-Downtime Deployment* melalui fitur ASG *Instance Refresh*.
+  - Instance EC2 privat tertanam dengan IAM Role SSM (Session Manager), mengizinkan **koneksi terminal aman melalui browser tanpa memerlukan SSH Key atau pembukaan Port 22**.
 - **Security**: 
   - Security Group untuk secara ketat membatasi akses (hanya mengizinkan trafik HTTP/HTTPS ke ALB, dan trafik dari ALB ke EC2).
 - **Backend & State Management**: 
@@ -67,6 +68,9 @@ Walaupun proyek ini dirancang untuk dijalankan melalui GitHub Actions, Anda dapa
    ```bash
    terraform apply
    ```
+4. **Testing Konektivitas & Debugging (SSM)**:
+   - Akses load balancer DNS link di browser Anda.
+   - Untuk masuk ke terminal EC2: Buka AWS Console -> **EC2** -> Pilih instance -> Klik **Connect** -> Pilih **Session Manager**.
 4. **Update & Redeploy Aplikasi (Opsional)**:
    - Apabila ada perubahan skrip pada *Launch Template* (misal: mengganti versi Nginx), cukup jalankan kembali `terraform apply`.
    - Terraform akan memicu penugasan **ASG Instance Refresh** untuk menggantikan mesin lama dengan berhati-hati tanpa *downtime*.

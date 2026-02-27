@@ -89,6 +89,7 @@ skybridge-enterprise/
 ### Fase 4: Operasional & Testing
 - **Verifikasi URL**: Akses DNS Name dari Load Balancer di browser.
 - **Tag Audit**: Cek AWS Tag Editor untuk memastikan semua resource memiliki tag `Owner: stayrelevantid`.
+- **SSM Debugging (Tanpa SSH / Port 22)**: Masuk ke AWS Console EC2 -> Pilih salah satu instance Nginx -> Klik **Connect** -> Pilih **Session Manager**. Ini menggantikan akses SSH tradisional dengan koneksi browser yang sangat aman.
 - **High Availability Test**: Coba terminate satu instance di console dan lihat ASG membuat penggantinya secara otomatis.
 
 ### Fase 5: App Redeployment & Instance Refresh (Zero-Downtime)
