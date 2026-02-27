@@ -17,7 +17,7 @@ Ini adalah finalisasi menyeluruh untuk Project SkyBridge. Kita akan menggabungka
 - **CI (Audit)**: Trigger saat *Pull Request*. Menjalankan `terraform plan` dan posting hasil ke komentar PR.
 - **CD (Deploy)**: Trigger saat *Merge* ke `main`. Menjalankan `terraform apply`.
 - **Redeploy (Refresh)**: Pembaruan aplikasi (contoh: update versi Nginx) dilakukan dengan mengubah *Launch Template*, yang akan memicu proses *ASG Instance Refresh* secara otomatis.
-- **Manual (Destroy)**: Eksekusi `terraform destroy` secara lokal dari komputer untuk menghapus seluruh *resource* termasuk S3 Bucket State.
+- **Manual (Destroy)**: Eksekusi `terraform destroy` secara lokal dari komputer untuk menghapus seluruh *resource* termasuk S3 Bucket State. Tidak ada workflow GitHub untuk proses perusakan (destroy) demi keamanan.
 
 ## 2. Struktur Kode & Labeling Audit
 
@@ -51,8 +51,7 @@ skybridge-enterprise/
 │   └── main.tf
 ├── .github/workflows/    # CI/CD GitHub Actions
 │   ├── audit.yml
-│   ├── deploy.yml
-│   └── destroy.yml
+│   └── deploy.yml
 ├── locals.tf             # Variabel lokal & Tagging Audit
 ├── provider.tf           # Konfigurasi AWS Provider
 ├── backend.tf            # Konfigurasi Remote State S3

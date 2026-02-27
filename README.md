@@ -34,6 +34,8 @@ Proyek ini mengimplementasikan CI/CD secara penuh:
 skybridge-enterprise/
 ├── bootstrap/            # Konfigurasi pendukung awal (S3 & DynamoDB backend)
 ├── .github/workflows/    # Definisi pipeline CI/CD GitHub Actions
+│   ├── audit.yml
+│   └── deploy.yml
 ├── locals.tf             # Variabel lokal dan standardisasi tagging AWS
 ├── provider.tf           # Konfigurasi AWS Provider
 ├── backend.tf            # Konfigurasi Remote State menggunakan S3 & DynamoDB
